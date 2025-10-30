@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Jaby K. Paul, DMD | The Future of Dentistry</title>
+    <meta name="description" content="Experience the future of dentistry with Dr. Jaby K. Paul. Next-generation dental care powered by innovation.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary-blue: #0A2463;
+            --accent-cyan: #3BFFB3;
+            --glow: rgba(59, 255, 179, 0.3);
+        }
+        
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor, .cursor-glow {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transition: all 0.15s ease;
+        }
+        
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-glow {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px) saturate(180%);
+            padding: 1.5rem 3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(59, 255, 179, 0.1);
+        }
+        
+        nav.scrolled {
+            padding: 1rem 3rem;
+            background: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 10px 40px var(--glow);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-cyan), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+        
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), #00ff88);
+            color: #000;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px var(--glow);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 50px rgba(59, 255, 179, 0.6);
+        }
+        
+        /* Hero Section */
+        #hero {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #000 0%, #0A2463 50%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 8rem 2rem 4rem;
+            overflow: hidden;
+        }
+        
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-cyan), transparent);
+            top: 10%;
+            left: 10%;
+        }
+        
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #0A2463, transparent);
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+        
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #00ff88, transparent);
+            top: 50%;
+            left: 50%;
+            animation-delay: 6s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-50px, 50px) scale(0.9); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            animation: heroEntrance 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes heroEntrance {
+            0% { opacity: 0; transform: translateY(60px) scale(0.9); filter: blur(10px); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+        
+        .hero-content h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 6.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -2px;
+            text-shadow: 0 0 60px var(--glow);
+        }
+        
+        .accent {
+            background: linear-gradient(135deg, var(--accent-cyan), #00ff88, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hero-content p {
+            font-size: clamp(1.1rem, 3vw, 1.8rem);
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 0.9rem 2.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px var(--glow);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            opacity: 0.7;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+        
+        /* Sections */
+        section {
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .section-header.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+        
+        .section-header p {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        
+        /* Trust Bar */
+        #trustBar {
+            background: rgba(10, 36, 99, 0.3);
+            padding: 2.5rem 0;
+            overflow: hidden;
+            border-top: 1px solid rgba(59, 255, 179, 0.2);
+            border-bottom: 1px solid rgba(59, 255, 179, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .trust-scroll {
+            display: flex;
+            gap: 3rem;
+            animation: infiniteScroll 40s linear infinite;
+            white-space: nowrap;
+        }
+        
+        @keyframes infiniteScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .trust-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px var(--glow);
+            font-weight: 600;
+            border: 1px solid rgba(59, 255, 179, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .trust-item:hover {
+            background: rgba(59, 255, 179, 0.1);
+            transform: scale(1.05);
+        }
+        
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            perspective: 1000px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 3rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(59, 255, 179, 0.2);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            transform: translateY(80px) rotateX(-15deg);
+        }
+        
+        .feature-card.reveal {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 80px var(--glow);
+            border-color: var(--accent-cyan);
+            background: rgba(59, 255, 179, 0.05);
+        }
+        
+        .feature-card .icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            filter: drop-shadow(0 0 20px var(--glow));
+            transition: all 0.4s ease;
+        }
+        
+        .feature-card:hover .icon {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 40px rgba(59, 255, 179, 0.8));
+        }
+        
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .feature-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-card ul li {
+            padding: 0.7rem 0;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card ul li:hover {
+            color: var(--accent-cyan);
+            transform: translateX(10px);
+        }
+        
+        .feature-card ul li:before {
+            content: "✓";
+            color: var(--accent-cyan);
+            font-weight: bold;
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Services */
+        #services {
+            background: linear-gradient(180deg, #000 0%, #0A2463 50%, #000 100%);
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem;
+        }
+        
+        .service-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(59, 255, 179, 0.03));
+            padding: 3rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(59, 255, 179, 0.2);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 255, 179, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
+            animation: rotate 10s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .service-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            box-shadow: 0 40px 100px rgba(59, 255, 179, 0.4);
+            border-color: var(--accent-cyan);
+        }
+        
+        .service-card .icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            filter: drop-shadow(0 0 30px rgba(59, 255, 179, 0.6));
+            position: relative;
+            z-index: 2;
+        }
+        
+        .service-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .service-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .service-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .service-list li {
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .service-list li:hover {
+            color: var(--accent-cyan);
+            transform: translateX(10px);
+        }
+        
+        .service-list li:before {
+            content: "●";
+            color: var(--accent-cyan);
+            font-weight: bold;
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        /* About */
+        #about {
+            background: linear-gradient(180deg, #000 0%, rgba(10, 36, 99, 0.3) 50%, #000 100%);
+        }
+        
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+        
+        .about-images {
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .about-images .main-image {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            border-radius: 2rem;
+            box-shadow: 0 30px 80px var(--glow);
+            transition: all 0.6s ease;
+            border: 2px solid rgba(59, 255, 179, 0.3);
+        }
+        
+        .about-images .main-image:hover {
+            transform: scale(1.02) rotateY(5deg);
+            box-shadow: 0 40px 100px rgba(59, 255, 179, 0.5);
+        }
+        
+        .about-images .overlay-image {
+            position: absolute;
+            bottom: -2rem;
+            right: -2rem;
+            width: 40%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 60px rgba(59, 255, 179, 0.4);
+            border: 4px solid #000;
+            transition: all 0.6s ease;
+        }
+        
+        .about-images .overlay-image:hover {
+            transform: scale(1.1) rotate(-5deg);
+            z-index: 10;
+        }
+        
+        .about-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 900;
+        }
+        
+        .about-content p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            font-size: 1.15rem;
+            line-height: 1.9;
+        }
+        
+        .quote {
+            background: rgba(59, 255, 179, 0.05);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 2rem;
+            margin: 3rem 0;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: 0 1rem 1rem 0;
+            box-shadow: 0 10px 40px var(--glow);
+        }
+        
+        .interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .interest-tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(59, 255, 179, 0.3);
+            color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+        
+        .interest-tag:hover {
+            background: rgba(59, 255, 179, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--glow);
+        }
+        
+        /* Testimonials */
+        .testimonial-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(59, 255, 179, 0.05);
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(59, 255, 179, 0.3);
+            backdrop-filter: blur(20px);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(59, 255, 179, 0.03));
+            padding: 4rem;
+            border-radius: 2.5rem;
+            box-shadow: 0 20px 80px rgba(59, 255, 179, 0.2);
+            border: 1px solid rgba(59, 255, 179, 0.3);
+            backdrop-filter: blur(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 100px rgba(59, 255, 179, 0.4);
+        }
+        
+        .stars {
+            font-size: 2.5rem;
+            color: #FFD700;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+        
+        .testimonial-text {
+            font-size: 1.6rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.9;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-size: 1.4rem;
+        }
+        
+        /* Locations */
+        #locations {
+            background: linear-gradient(135deg, #0A2463 0%, #000 50%, #0A2463 100%);
+        }
+        
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+        
+        .location-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px) saturate(180%);
+            padding: 3rem;
+            border-radius: 2.5rem;
+            border: 1px solid rgba(59, 255, 179, 0.3);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .location-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 255, 179, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+        
+        .location-card:hover::before {
+            left: 100%;
+        }
+        
+        .location-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            background: rgba(59, 255, 179, 0.08);
+            box-shadow: 0 40px 100px rgba(59, 255, 179, 0.4);
+        }
+        
+        .location-card .icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 20px rgba(59, 255, 179, 0.6));
+        }
+        
+        .location-card h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        
+        .contact-info div {
+            padding: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-info div:hover {
+            transform: translateX(10px);
+            color: var(--accent-cyan);
+        }
+        
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            color: var(--accent-cyan);
+        }
+        
+        .specialties {
+            margin: 2rem 0;
+        }
+        
+        .specialties h4 {
+            color: var(--accent-cyan);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        
+        .specialty-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .specialty-tags span {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.7rem 1.3rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(59, 255, 179, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .specialty-tags span:hover {
+            background: rgba(59, 255, 179, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .location-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .location-buttons a {
+            flex: 1;
+            min-width: 160px;
+            text-align: center;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.4s ease;
+        }
+        
+        .btn-visit {
+            background: linear-gradient(135deg, var(--accent-cyan), #00ff88);
+            color: #000;
+            box-shadow: 0 10px 30px var(--glow);
+        }
+        
+        .btn-visit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(59, 255, 179, 0.6);
+        }
+        
+        .btn-book {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-book:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+        
+        /* Final CTA */
+        #finalCTA {
+            background: linear-gradient(135deg, #0A2463 0%, #000 50%, #0A2463 100%);
+            text-align: center;
+            padding: 10rem 2rem;
+        }
+        
+        #finalCTA h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 7vw, 5rem);
+            margin-bottom: 2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 40px var(--glow); }
+            50% { text-shadow: 0 0 80px rgba(59, 255, 179, 0.8); }
+        }
+        
+        #finalCTA p {
+            font-size: 1.8rem;
+            margin-bottom: 4rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 5rem;
+        }
+        
+        .cta-buttons a {
+            padding: 1.3rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+        }
+        
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .benefit-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(59, 255, 179, 0.2);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(20px);
+        }
+        
+        .benefit-item:hover {
+            transform: translateY(-10px);
+            background: rgba(59, 255, 179, 0.05);
+            box-shadow: 0 20px 60px var(--glow);
+        }
+        
+        .benefit-item .icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            filter: drop-shadow(0 0 20px var(--glow));
+        }
+        
+        .benefit-item h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 5rem 2rem 2rem;
+            border-top: 1px solid rgba(59, 255, 179, 0.2);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+        
+        .footer-brand h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-cyan), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--accent-cyan);
+            transform: translateX(5px);
+            display: inline-block;
+        }
+        
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links { display: none; }
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            .hero-buttons, .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+        
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader {
+            width: 100px;
+            height: 100px;
+            border: 3px solid rgba(59, 255, 179, 0.2);
+            border-top: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="loader"></div>
+    </div>
+
+    <div class="custom-cursor"></div>
+    <div class="cursor-glow"></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Dr. Jaby K. Paul</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#locations">Locations</a></li>
+            </ul>
+            <a href="#finalCTA" class="btn-primary">Book Now</a>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <canvas id="particleCanvas"></canvas>
+        <div class="hero-content">
+            <h1>
+                The Future of<br>
+                <span class="accent">Precision Dentistry</span><br>
+                Is Here
+            </h1>
+            <p>Dr. Jaby K. Paul, DMD</p>
+            <p style="font-size: 1.2rem; opacity: 0.7;">Where Innovation Meets Artistry</p>
+            <div class="hero-buttons">
+                <a href="#finalCTA" class="btn-primary">Experience Excellence</a>
+                <a href="#about" class="btn-secondary">Discover More →</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <div id="trustBar">
+        <div class="trust-scroll">
+            <span class="trust-item">🏆 American Dental Association</span>
+            <span class="trust-item">✓ NY State Board Certified</span>
+            <span class="trust-item">🎓 Rutgers School of Dentistry</span>
+            <span class="trust-item">⭐ 98% Patient Satisfaction</span>
+            <span class="trust-item">🏥 Brooklyn Hospital Center</span>
+            <span class="trust-item">💼 Comprehensive Care Specialist</span>
+            <span class="trust-item">🏆 American Dental Association</span>
+            <span class="trust-item">✓ NY State Board Certified</span>
+            <span class="trust-item">🎓 Rutgers School of Dentistry</span>
+            <span class="trust-item">⭐ 98% Patient Satisfaction</span>
+        </div>
+    </div>
+
+    <section id="whyDifferent">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Dr. Paul is <span class="accent">Revolutionary</span></h2>
+                <p>Experience dentistry that transcends expectations</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="icon">🔬</span>
+                    <h3>Tech-First Innovation</h3>
+                    <p>Cutting-edge technology meets AI diagnostics for precision care that redefines standards.</p>
+                    <ul>
+                        <li>Digital X-rays</li>
+                        <li>CAD/CAM Technology</li>
+                        <li>AI-Enhanced Diagnostics</li>
+                        <li>3D Imaging</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🤝</span>
+                    <h3>Personal Excellence</h3>
+                    <p>Comprehensive exams and collaborative decision-making. Your vision becomes our mission.</p>
+                    <ul>
+                        <li>Thorough Consultations</li>
+                        <li>Transparent Communication</li>
+                        <li>Customized Treatment Plans</li>
+                        <li>Lifelong Relationships</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">⚡</span>
+                    <h3>Efficient Brilliance</h3>
+                    <p>Same-day treatments when possible. We value your time as much as your smile.</p>
+                    <ul>
+                        <li>Same-Day Crowns</li>
+                        <li>Flexible Scheduling</li>
+                        <li>Minimal Wait Times</li>
+                        <li>Emergency Care</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Comprehensive <span class="accent">Dental Mastery</span></h2>
+                <p>From routine care to advanced treatments, experience excellence in every visit</p>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <span class="icon">💎</span>
+                    <h3>Cosmetic Artistry</h3>
+                    <p>Transform your smile with precision veneers, bonding, and professional whitening.</p>
+                    <ul class="service-list">
+                        <li>Porcelain Veneers</li>
+                        <li>Professional Whitening</li>
+                        <li>Dental Bonding</li>
+                        <li>Complete Smile Design</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <span class="icon">🔧</span>
+                    <h3>Restorative Excellence</h3>
+                    <p>Rebuild and restore with advanced crowns, bridges, and implant technology.</p>
+                    <ul class="service-list">
+                        <li>Dental Crowns</li>
+                        <li>Fixed Bridges</li>
+                        <li>Implant Restorations</li>
+                        <li>Custom Dentures</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <span class="icon">⚡</span>
+                    <h3>Emergency Care</h3>
+                    <p>Immediate relief when you need it most. Same-day appointments available.</p>
+                    <ul class="service-list">
+                        <li>Rapid Pain Relief</li>
+                        <li>Emergency Tooth Repair</li>
+                        <li>Trauma Care</li>
+                        <li>24/7 Support Line</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <span class="icon">🛡️</span>
+                    <h3>Preventive Care</h3>
+                    <p>Keep your smile healthy with comprehensive exams and advanced screenings.</p>
+                    <ul class="service-list">
+                        <li>Comprehensive Exams</li>
+                        <li>Professional Cleanings</li>
+                        <li>Digital X-rays</li>
+                        <li>Oral Cancer Screening</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <span class="icon">🦷</span>
+                    <h3>Advanced Treatments</h3>
+                    <p>Root canals, extractions, and oral surgery with minimal discomfort.</p>
+                    <ul class="service-list">
+                        <li>Root Canal Therapy</li>
+                        <li>Wisdom Teeth Removal</li>
+                        <li>Oral Surgery</li>
+                        <li>Bone Grafting</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <span class="icon">😌</span>
+                    <h3>Comfort Solutions</h3>
+                    <p>Anxiety-free dentistry with multiple sedation options and gentle techniques.</p>
+                    <ul class="service-list">
+                        <li>Nitrous Oxide</li>
+                        <li>IV Sedation</li>
+                        <li>Custom Night Guards</li>
+                        <li>TMJ Treatment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="about-container">
+                <div class="about-images">
+                    <img src="/mnt/user-data/uploads/dddd.jfif" alt="Dr. Jaby K. Paul" class="main-image">
+                    <img src="/mnt/user-data/uploads/gggg.jpg" alt="Dr. Jaby K. Paul Professional" class="overlay-image">
+                </div>
+                <div class="about-content">
+                    <h2>Meet <span class="accent">Dr. Jaby K. Paul</span></h2>
+                    <p>Born and raised in New York, Dr. Paul brings a unique blend of comprehensive expertise and cutting-edge innovation to modern dentistry.</p>
+                    <p>After completing a seven-year accelerated program at the University of Medicine and Dentistry of New Jersey (now Rutgers), he refined his skills at Brooklyn Hospital Center, where he developed his passion for comprehensive care.</p>
+                    <div class="quote">
+                        "I believe in finding the root cause of dental issues through great communication and shared decision-making, not just providing temporary solutions."<br>
+                        <strong>— Dr. Jaby K. Paul</strong>
+                    </div>
+                    <p>Dr. Paul's philosophy is simple: technology-enhanced, patient-centered care that creates lifelong relationships. His expertise spans cosmetics, endodontics, oral surgery, and prosthodontics.</p>
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-cyan);">Beyond Dentistry</h3>
+                    <div class="interests">
+                        <span class="interest-tag">🎬 Movie Enthusiast</span>
+                        <span class="interest-tag">🍽️ Culinary Explorer</span>
+                        <span class="interest-tag">🔧 DIY Projects</span>
+                        <span class="interest-tag">💻 Tech Innovator</span>
+                        <span class="interest-tag">📰 Current Events</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our <span class="accent">Patients Say</span></h2>
+                <p>Real stories from real patients who've experienced the Dr. Paul difference</p>
+            </div>
+            <div class="testimonial-container">
+                <div class="trust-badge">
+                    <span style="font-size: 2rem;">⭐</span>
+                    <div>
+                        <div style="font-weight: 700; font-size: 1.25rem; color: white;">98% Satisfaction Rate</div>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Based on 247+ reviews</div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Dr. Paul transformed my smile beyond my wildest dreams. The entire process was seamless, and the technology he uses made me feel like I was in the future of dentistry. Couldn't be happier!"</p>
+                    <div class="testimonial-author">Sarah M.</div>
+                    <div style="color: rgba(255,255,255,0.7); margin-top: 0.5rem;">Cosmetic Veneers</div>
+                    <div style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">📍 New City, NY</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="locations">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: white;">Visit Us at <span class="accent">Two Convenient Locations</span></h2>
+                <p style="color: rgba(255,255,255,0.8);">Experience exceptional dental care at either of our state-of-the-art facilities</p>
+            </div>
+            <div class="locations-grid">
+                <div class="location-card">
+                    <span class="icon">🏥</span>
+                    <h3>Rockland Pediatric Dental & Orthodontics</h3>
+                    <div class="contact-info">
+                        <div>📍 New City, NY</div>
+                        <div>📞 <a href="tel:845-634-2900">(845) 634-2900</a></div>
+                        <div>✉️ <a href="mailto:info@rocklandpediatricdental.com">info@rocklandpediatricdental.com</a></div>
+                    </div>
+                    <div class="specialties">
+                        <h4>SPECIALTIES</h4>
+                        <div class="specialty-tags">
+                            <span>Family Dentistry</span>
+                            <span>Pediatric Care</span>
+                            <span>Orthodontics</span>
+                            <span>General Dentistry</span>
+                        </div>
+                    </div>
+                    <div class="location-buttons">
+                        <a href="https://www.rocklandpediatricdental.com/" target="_blank" class="btn-visit">Visit Website</a>
+                        <a href="#finalCTA" class="btn-book">Book Here</a>
+                    </div>
+                </div>
+                <div class="location-card">
+                    <span class="icon">🦷</span>
+                    <h3>Dental Collective</h3>
+                    <div class="contact-info">
+                        <div>📍 Location, NY</div>
+                        <div>📞 <a href="tel:XXX-XXX-XXXX">(XXX) XXX-XXXX</a></div>
+                        <div>✉️ <a href="mailto:info@dentalcollective.org">info@dentalcollective.org</a></div>
+                    </div>
+                    <div class="specialties">
+                        <h4>SPECIALTIES</h4>
+                        <div class="specialty-tags">
+                            <span>Comprehensive Care</span>
+                            <span>Cosmetic Dentistry</span>
+                            <span>Advanced Treatments</span>
+                            <span>Restorative Care</span>
+                        </div>
+                    </div>
+                    <div class="location-buttons">
+                        <a href="https://www.dentalcollective.org/" target="_blank" class="btn-visit">Visit Website</a>
+                        <a href="#finalCTA" class="btn-book">Book Here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="finalCTA">
+        <div class="container">
+            <h2>Ready for Your <span class="accent">Best Smile?</span></h2>
+            <p>Experience the future of dentistry. Book your appointment today and discover the difference precision care makes.</p>
+            <div class="cta-buttons">
+                <a href="tel:845-634-2900" class="btn-primary">📞 Call Now</a>
+                <a href="sms:845-634-2900" class="btn-secondary">💬 Text Us</a>
+                <a href="mailto:info@rocklandpediatricdental.com" class="btn-secondary">✉️ Email Us</a>
+            </div>
+            <div class="benefit-grid">
+                <div class="benefit-item">
+                    <span class="icon">⚡</span>
+                    <h4>Same-Day Appointments</h4>
+                    <p>Emergency care available</p>
+                </div>
+                <div class="benefit-item">
+                    <span class="icon">💳</span>
+                    <h4>Flexible Financing</h4>
+                    <p>Insurance accepted</p>
+                </div>
+                <div class="benefit-item">
+                    <span class="icon">🎯</span>
+                    <h4>Two Locations</h4>
+                    <p>Choose what's convenient</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Dr. Jaby K. Paul</h3>
+                <p style="color: var(--accent-cyan); font-size: 0.9rem; margin-bottom: 1rem;">DMD - Advanced Dentistry</p>
+                <p>Where precision meets innovation. Experience comprehensive dental care powered by cutting-edge technology and personalized attention.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About Dr. Paul</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#locations">Locations</a></li>
+                    <li><a href="#finalCTA">Book Appointment</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services">Cosmetic Dentistry</a></li>
+                    <li><a href="#services">Restorative Care</a></li>
+                    <li><a href="#services">Emergency Care</a></li>
+                    <li><a href="#services">Preventive Care</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Patient Forms</a></li>
+                    <li><a href="#">Insurance</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Dr. Jaby K. Paul, DMD. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading-screen').classList.add('fade-out');
+            }, 1000);
+        });
+
+        // Custom cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorGlow = document.querySelector('.cursor-glow');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Particle canvas
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let mouseX = canvas.width / 2;
+        let mouseY = canvas.height / 2;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                const dx = mouseX - this.x;
+                const dy = mouseY - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const maxDistance = 150;
+
+                if (distance < maxDistance) {
+                    const force = (maxDistance - distance) / maxDistance;
+                    this.x -= (dx / distance) * force * 2;
+                    this.y -= (dy / distance) * force * 2;
+                }
+
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(59, 255, 179, ' + this.opacity + ')';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const particleCount = window.innerWidth < 768 ? 50 : 150;
+        const particles = Array.from({ length: particleCount }, () => new Particle());
+
+        function animate() {
+            ctx.fillStyle = 'rgba(10, 36, 99, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            particles.forEach((a, i) => {
+                particles.slice(i + 1).forEach(b => {
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = 'rgba(59, 255, 179, ' + (0.1 * (1 - distance / 100)) + ')';
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        canvas.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        animate();
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-header, .feature-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
