@@ -1437,6 +1437,85 @@
         #finalCTA.in-view .cta-buttons a:nth-child(3) {
             animation: smoothFadeUp 0.9s cubic-bezier(0.19, 1, 0.22, 1) 0.7s both;
         }
+        
+        /* ===== TECHNOLOGY SHOWCASE SECTION ===== */
+        
+        .tech-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        
+        .tech-image-container {
+            position: relative;
+            border-radius: 2rem;
+            overflow: hidden;
+            aspect-ratio: 16/10;
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+            box-shadow: 0 20px 60px rgba(59, 255, 179, 0.2);
+            border: 1px solid rgba(59, 255, 179, 0.3);
+        }
+        
+        .tech-image-container.reveal {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .tech-image-container:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(59, 255, 179, 0.4);
+        }
+        
+        .tech-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s ease;
+        }
+        
+        .tech-image-container:hover .tech-image {
+            transform: scale(1.1);
+        }
+        
+        .tech-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+            padding: 3rem 2.5rem 2rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .tech-image-container:hover .tech-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .tech-overlay h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tech-overlay p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 1024px) {
+            .tech-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1451,6 +1530,7 @@
         <div class="nav-container">
             <div class="logo">Dr. Jaby K. Paul</div>
             <ul class="nav-links">
+                <li><a href="#technology">Technology</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#locations">Locations</a></li>
@@ -1534,6 +1614,31 @@
                         <li>Minimal Wait Times</li>
                         <li>Emergency Care</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology" style="background: linear-gradient(180deg, #000 0%, rgba(10, 36, 99, 0.3) 50%, #000 100%); padding: 8rem 2rem;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Experience <span class="accent">Cutting-Edge Technology</span></h2>
+                <p>State-of-the-art equipment for precision diagnostics and treatment</p>
+            </div>
+            <div class="tech-showcase">
+                <div class="tech-image-container">
+                    <img src="images/cutting-edge-tech-1.webp" alt="Advanced Dental Technology" class="tech-image">
+                    <div class="tech-overlay">
+                        <h3>Digital Precision</h3>
+                        <p>Advanced imaging and diagnostic tools for accurate treatment planning</p>
+                    </div>
+                </div>
+                <div class="tech-image-container">
+                    <img src="images/cutting-edge-tech-2.jpg" alt="Modern Dental Equipment" class="tech-image">
+                    <div class="tech-overlay">
+                        <h3>Modern Innovation</h3>
+                        <p>Latest technology for comfortable, efficient dental care</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1963,7 +2068,7 @@
         }, observerOptions);
 
         // Observe all animated elements with elegant reveals
-        document.querySelectorAll('.section-header, .feature-card, .service-card, .about-images, .about-content, .testimonial-card, .testimonial-container .trust-badge, .location-card, .benefit-item, #finalCTA').forEach(el => {
+        document.querySelectorAll('.section-header, .feature-card, .service-card, .about-images, .about-content, .testimonial-card, .testimonial-container .trust-badge, .location-card, .benefit-item, .tech-image-container, #finalCTA').forEach(el => {
             observer.observe(el);
         });
 
@@ -1982,6 +2087,11 @@
 
         document.querySelectorAll('.benefit-item').forEach((card, i) => {
             card.style.transitionDelay = `${i * 0.2}s`;
+        });
+
+        // Elegant staggered delays for technology images
+        document.querySelectorAll('.tech-image-container').forEach((container, i) => {
+            container.style.transitionDelay = `${i * 0.25}s`;
         });
 
         // Smooth scroll for navigation links
