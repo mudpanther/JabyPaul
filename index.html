@@ -1903,12 +1903,14 @@
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Resources</h4>
+                <h4>Locations</h4>
                 <ul>
-                    <li><a href="#">Patient Forms</a></li>
-                    <li><a href="#">Insurance</a></li>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li style="color: var(--accent-cyan); font-weight: 600; margin-bottom: 0.5rem;">Rockland Pediatric Dental</li>
+                    <li><a href="tel:845-634-2900">📞 (845) 634-2900</a></li>
+                    <li><a href="https://www.rocklandpediatricdental.com/" target="_blank">New City, NY</a></li>
+                    <li style="color: var(--accent-cyan); font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem;">Dental Collective</li>
+                    <li><a href="tel:914-948-5701">📞 (914) 948-5701</a></li>
+                    <li><a href="https://www.dentalcollective.org/" target="_blank">Yonkers, NY</a></li>
                 </ul>
             </div>
         </div>
@@ -2125,6 +2127,331 @@
                 }
             });
         });
+    </script>
+
+    <!-- ===== CUTTING-EDGE INTERACTIVE FEATURES ===== -->
+    <style>
+    /* 3D TILT CARDS */
+    .tilt-card {
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease;
+    }
+
+    /* MAGNETIC BUTTONS */
+    .magnetic-button {
+        position: relative;
+        transition: transform 0.2s ease;
+    }
+
+    /* CURSOR TRAIL */
+    .cursor-trail {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent-cyan);
+        pointer-events: none;
+        z-index: 99998;
+        opacity: 0;
+        transition: opacity 0.3s;
+        box-shadow: 0 0 20px var(--accent-cyan);
+    }
+
+    /* SCROLL PROGRESS BAR */
+    .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent-cyan), #00ff88);
+        z-index: 10001;
+        transform-origin: 0%;
+        box-shadow: 0 0 10px var(--accent-cyan);
+    }
+
+    /* RIPPLE EFFECT */
+    .ripple {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .ripple-effect {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(59, 255, 179, 0.6);
+        transform: scale(0);
+        animation: ripple-animation 0.6s ease-out;
+        pointer-events: none;
+    }
+
+    @keyframes ripple-animation {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+
+    /* FLOATING ELEMENTS */
+    .float-element {
+        animation: float-gentle 6s ease-in-out infinite;
+    }
+
+    @keyframes float-gentle {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+
+    /* GLOW ON HOVER */
+    .glow-hover {
+        transition: all 0.3s ease;
+    }
+
+    .glow-hover:hover {
+        filter: drop-shadow(0 0 30px var(--accent-cyan));
+        transform: scale(1.05);
+    }
+    </style>
+
+    <script>
+    // ===== CUTTING-EDGE INTERACTIVE FEATURES =====
+
+    // 1. SCROLL PROGRESS BAR
+    function initScrollProgress() {
+        const progressBar = document.createElement('div');
+        progressBar.className = 'scroll-progress';
+        document.body.appendChild(progressBar);
+        
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            progressBar.style.width = scrollPercent + '%';
+        });
+    }
+
+    // 2. 3D TILT EFFECT ON CARDS
+    function init3DTilt() {
+        const cards = document.querySelectorAll('.feature-card, .service-card, .location-card, .tech-image-container');
+        
+        cards.forEach(card => {
+            card.classList.add('tilt-card');
+            
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+    }
+
+    // 3. MAGNETIC BUTTONS
+    function initMagneticButtons() {
+        const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-visit, .btn-book');
+        
+        buttons.forEach(button => {
+            button.classList.add('magnetic-button');
+            
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                button.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translate(0, 0)';
+            });
+        });
+    }
+
+    // 4. RIPPLE EFFECT ON CLICK
+    function initRippleEffect() {
+        document.querySelectorAll('.btn-primary, .btn-secondary, .btn-visit, .btn-book').forEach(button => {
+            button.classList.add('ripple');
+            
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple-effect';
+                
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    }
+
+    // 5. CURSOR TRAIL EFFECT
+    function initCursorTrail() {
+        const trails = [];
+        const trailCount = 8;
+        
+        for (let i = 0; i < trailCount; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.body.appendChild(trail);
+            trails.push({
+                element: trail,
+                x: 0,
+                y: 0,
+                targetX: 0,
+                targetY: 0
+            });
+        }
+        
+        let mouseX = 0, mouseY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        function animateTrails() {
+            trails.forEach((trail, index) => {
+                if (index === 0) {
+                    trail.targetX = mouseX;
+                    trail.targetY = mouseY;
+                } else {
+                    trail.targetX = trails[index - 1].x;
+                    trail.targetY = trails[index - 1].y;
+                }
+                
+                trail.x += (trail.targetX - trail.x) * 0.3;
+                trail.y += (trail.targetY - trail.y) * 0.3;
+                
+                trail.element.style.left = trail.x + 'px';
+                trail.element.style.top = trail.y + 'px';
+                trail.element.style.opacity = (trailCount - index) / trailCount * 0.4;
+            });
+            
+            requestAnimationFrame(animateTrails);
+        }
+        
+        animateTrails();
+    }
+
+    // 6. PARALLAX MOUSE MOVEMENT
+    function initParallaxMouse() {
+        const layers = document.querySelectorAll('.gradient-orb');
+        
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+            
+            layers.forEach((layer, index) => {
+                const depth = (index + 1) * 15;
+                const currentTransform = layer.style.transform || '';
+                // Preserve existing scroll-based transforms
+                if (!currentTransform.includes('translate')) {
+                    layer.style.transform += ` translate(${x * depth}px, ${y * depth}px)`;
+                }
+            });
+        });
+    }
+
+    // 7. FLOATING ELEMENTS
+    function initFloatingElements() {
+        document.querySelectorAll('.feature-card .icon, .benefit-item .icon, .service-card .icon').forEach(icon => {
+            icon.classList.add('float-element');
+        });
+    }
+
+    // 8. GLOW EFFECTS
+    function initGlowEffects() {
+        document.querySelectorAll('.feature-card .icon, .service-card .icon, .location-card .icon').forEach(icon => {
+            icon.classList.add('glow-hover');
+        });
+    }
+
+    // 9. SMOOTH SCROLL WITH MOMENTUM
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || !href) return;
+                
+                e.preventDefault();
+                const target = document.querySelector(href);
+                
+                if (target) {
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
+                    const startPosition = window.pageYOffset;
+                    const distance = targetPosition - startPosition;
+                    const duration = 1200;
+                    let start = null;
+                    
+                    function animation(currentTime) {
+                        if (start === null) start = currentTime;
+                        const timeElapsed = currentTime - start;
+                        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+                        window.scrollTo(0, run);
+                        if (timeElapsed < duration) requestAnimationFrame(animation);
+                    }
+                    
+                    function easeInOutCubic(t, b, c, d) {
+                        t /= d / 2;
+                        if (t < 1) return c / 2 * t * t * t + b;
+                        t -= 2;
+                        return c / 2 * (t * t * t + 2) + b;
+                    }
+                    
+                    requestAnimationFrame(animation);
+                }
+            });
+        });
+    }
+
+    // 10. CARD GLOW ON HOVER
+    function initCardGlowEffects() {
+        const cards = document.querySelectorAll('.feature-card, .service-card, .location-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 30px 80px rgba(59, 255, 179, 0.5)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+    }
+
+    // INITIALIZE ALL FEATURES ON PAGE LOAD
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('🚀 Initializing cutting-edge interactive features...');
+        
+        initScrollProgress();
+        init3DTilt();
+        initMagneticButtons();
+        initRippleEffect();
+        initCursorTrail();
+        initParallaxMouse();
+        initFloatingElements();
+        initGlowEffects();
+        initSmoothScroll();
+        initCardGlowEffects();
+        
+        console.log('✅ All interactive features loaded!');
+    });
     </script>
 </body>
 </html>
